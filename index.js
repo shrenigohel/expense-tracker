@@ -24,3 +24,20 @@ if (command === "total") {
   const total = expenses.reduce((sum, e) => sum + e.amount, 0);
   console.log(`Total spent: ₹${total}`);
 }
+if (command === "delete") {
+  const id = parseInt(process.argv[3]) - 1;
+  const expenses = loadExpenses();
+  if (expenses[id]) {
+    console.log(` Deleted: ₹${expenses[id].amount} - ${expenses[id].category}`);
+    expenses.splice(id, 1);
+    saveExpenses(expenses);
+  }
+}
+
+if (command === "list" && process.argv[3]) {
+  const category = process.argv[3];
+  const expenses = loadExpenses().filter(e => e.category === category);
+  expenses.forEach((e, i) =>
+    console.log(`${i + 1}. ₹${e.amount} - ${e.category}`)
+  );
+}
