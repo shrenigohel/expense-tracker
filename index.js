@@ -11,3 +11,16 @@ if (command === "add") {
   saveExpenses(expenses);
   console.log( `Added: ${amount} in ${category}`);
 }
+
+if (command === "list") {
+  const expenses = loadExpenses();
+  expenses.forEach((e, i) =>
+    console.log(`${i + 1}. ₹${e.amount} - ${e.category} (${e.date.split("T")[0]})`)
+  );
+}
+
+if (command === "total") {
+  const expenses = loadExpenses();
+  const total = expenses.reduce((sum, e) => sum + e.amount, 0);
+  console.log(`Total spent: ₹${total}`);
+}
